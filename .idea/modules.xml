@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/su.mart.ororodov.servlets.iml" filepath="$PROJECT_DIR$/.idea/modules/su.mart.ororodov.servlets.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/su.mart.ororodov.servlets_main.iml" filepath="$PROJECT_DIR$/.idea/modules/su.mart.ororodov.servlets_main.iml" group="su.mart.ororodov.servlets" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/su.mart.ororodov.servlets_test.iml" filepath="$PROJECT_DIR$/.idea/modules/su.mart.ororodov.servlets_test.iml" group="su.mart.ororodov.servlets" />
+    </modules>
+  </component>
+</project>
