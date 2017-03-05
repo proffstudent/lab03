@@ -1,7 +1,7 @@
 package main.controllers;
 
 import main.common.exceptions.UserDaoException;
-import main.models.dao.UserDao;
+import main.models.jdbc.UserDaoJdbc;
 import main.models.pojo.User;
 import org.apache.log4j.Logger;
 import main.services.UserService;
@@ -28,7 +28,7 @@ public class AddUserServlet extends HttpServlet {
         User user = new User();
         if (id != 0) {
             try {
-                user = UserDao.getUserById(id);
+                user = UserDaoJdbc.getUserById(id);
             } catch (UserDaoException e) {
                 logger.error(e);
             }

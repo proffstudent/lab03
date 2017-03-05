@@ -17,4 +17,17 @@ dependencies {
     compile 'jstl:jstl:1.2'
     compile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
     compile group: 'javax.mail', name: 'mail', version: '1.4'
+    // https://mvnrepository.com/artifact/org.springframework/spring-context
+    compile group: 'org.springframework', name: 'spring-context', version: '4.3.6.RELEASE'
+    // https://mvnrepository.com/artifact/org.springframework/spring-core
+    compile group: 'org.springframework', name: 'spring-core', version: '4.3.6.RELEASE'
+    // https://mvnrepository.com/artifact/org.springframework/spring-jdbc
+    compile group: 'org.springframework', name: 'spring-jdbc', version: '4.3.6.RELEASE'
+// https://mvnrepository.com/artifact/org.springframework/spring-context-support
+    compile group: 'org.springframework', name: 'spring-context-support', version: '4.3.6.RELEASE'
+// https://mvnrepository.com/artifact/org.springframework/spring-web
+    compile group: 'org.springframework', name: 'spring-web', version: '4.3.6.RELEASE'
+
+
+
 }

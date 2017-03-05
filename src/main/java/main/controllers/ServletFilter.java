@@ -1,6 +1,6 @@
 package main.controllers;
 
-import main.models.dao.UserDao;
+import main.models.jdbc.UserDaoJdbc;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -84,7 +84,7 @@ public class ServletFilter implements Filter
                 // Если была предварительно открыта одна из страниц
                 // login.jsp или registration.jsp, то передаем управление
                 // следующему элементу цепочки фильтра
-                if (UserDao.getAuth() && (pages.contains("login.jsp") || pages.contains("registration.jsp"))) {
+                if (UserDaoJdbc.getAuth() && (pages.contains("login.jsp") || pages.contains("registration.jsp"))) {
                     logger.trace(pages.contains("login.jsp") + " login.jspc= "+ pages.contains("registration.jsp"));
                             filterChain.doFilter(request, response);
                     return;
