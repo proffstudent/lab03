@@ -3,10 +3,11 @@ package main.services;
 import main.common.exceptions.UserDaoException;
 import main.models.jdbc.UserDaoJdbc;
 import main.models.pojo.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+@Service
 public class UserService {
 
    /* public List<User> getAllUsers(){

@@ -22,7 +22,7 @@
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 
-    <bean id="userServler" class="main.controllers.UsersServlet">
+    <bean id="usersServlet" class="main.controllers.UsersServlet">
         <property name="userDao" ref="userDaoJdbc"/>
     </bean>
 

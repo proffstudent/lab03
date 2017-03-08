@@ -7,11 +7,13 @@ import main.models.pojo.User;
 import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class UserDaoJdbc implements UserDao{
 
     private static boolean auth = false;
@@ -123,6 +125,7 @@ public class UserDaoJdbc implements UserDao{
         }
         return user;
     }
+
 
     public static int updateUser(User user) throws UserDaoException {
         int count = 0;
