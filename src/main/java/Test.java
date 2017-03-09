@@ -26,7 +26,7 @@ public class Test {
         } catch (SQLException e) {
             e.printStackTrace();
         }*/
-        UserDaoJdbc.updateUser(new User(1,"2","2","2","2","2",new java.sql.Date(new java.util.Date().getTime()),new java.sql.Date(new java.util.Date().getTime()),true,"2", new java.sql.Date(new java.util.Date().getTime()),"2","2","2","2","2","2","2",1));
+        //UserDaoJdbc.updateUser(new User(1,"2","2","2","2","2",new java.sql.Date(new java.util.Date().getTime()),new java.sql.Date(new java.util.Date().getTime()),true,"2", new java.sql.Date(new java.util.Date().getTime()),"2","2","2","2","2","2","2",1));
 
 
         logger.trace("try logger!");

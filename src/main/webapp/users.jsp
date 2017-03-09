@@ -32,6 +32,6 @@
     </tr>
 </c:forEach>
 </table>
-<a href="/reviews/adduser?id=0">Добавить</a>
+<a href="/reviews/adduser?id=${0}">Добавить</a>
 </body>
 </html>

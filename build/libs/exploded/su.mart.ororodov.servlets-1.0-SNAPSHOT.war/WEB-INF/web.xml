@@ -67,6 +67,10 @@
         <url-pattern>/error.jsp</url-pattern>
     </servlet-mapping>
 
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
     <filter>
         <filter-name>simpleFilter</filter-name>
         <filter-class>main.controllers.ServletFilter</filter-class>

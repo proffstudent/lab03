@@ -9,22 +9,18 @@ import java.util.List;
  * Created by User on 05.03.2017.
  */
 public interface UserDao {
-    List<User> getAllUsers();
-    static User getUserById(int id) throws UserDaoException{
-        return null;
-    }
-    static int updateUser(User user) throws UserDaoException{
-        return 0;
-    }
-    static int insertUser(User user) throws UserDaoException{
-        return 0;
-    }
-    static int deleteUser(int id){
-        return 0;
-    }
-    static User  getUserByLoginAndPassword(String login, String password) throws UserDaoException{
-        return null;
-    }
+    List<User> getAllUsers() throws UserDaoException;
+
+    int deleteUser(int id)throws UserDaoException;
+
+    User getUserById(int id) throws UserDaoException;
+
+    int insertUser(User user) throws UserDaoException;
+
+    int updateUser(User user) throws UserDaoException;
+
+    User  getUserByLoginAndPassword(String login, String password) throws UserDaoException;
+
     static boolean registrationUser(String login, String password, String email, Integer accessLevel)
             throws UserDaoException{
         return false;

@@ -1,12 +1,15 @@
 package main.controllers;
 
 import main.models.dao.UserDao;
+import main.models.jdbc.UserDaoJdbc;
 import main.models.pojo.User;
 import org.apache.log4j.Logger;
 import main.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -21,22 +24,22 @@ import java.util.List;
  */
 public class UsersServlet extends HttpServlet {
 
-    private UserDao userDao;
-    public void setUserDao(UserDao userDao){this.userDao = userDao;}
+    @Autowired
+    private UserService userService;
 
     private static Logger logger = Logger.getLogger(UsersServlet.class);
 
+
     @Override
     public void init(ServletConfig config) throws ServletException {
-        ApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-        AutowireCapableBeanFactory beanFactory = ac.getAutowireCapableBeanFactory();
-        userDao = (UserDao) beanFactory.getBean("userDaoJdbc");
+        super.init(config);
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
-        List<User> users= userDao.getAllUsers();
+        List<User> users= userService.getAllUsers();
         logger.debug(users.size());
         req.setAttribute("users", users);
         req.getRequestDispatcher("/users.jsp").forward(req, resp);
@@ -46,4 +49,7 @@ public class UsersServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPost(req, resp);
     }
+
+
+
 }

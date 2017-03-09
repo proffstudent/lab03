@@ -22,6 +22,7 @@ public class UserDaoJdbc implements UserDao{
     public static boolean getAuth(){
         return auth;
     }
+
     private static String SQL_ALL_USERS= "SELECT * FROM public.users";
 
     private static final String SQL_FIND_USER_LOGIN_PASS = "SELECT * FROM  public.users " +
@@ -56,7 +57,7 @@ public class UserDaoJdbc implements UserDao{
     private static class UserRowMapper implements RowMapper<User> {
         @Override
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-            logger.debug("mapRow");
+            logger.debug("UserRowMapper");
             User user = new User(rs.getInt("id"),
                     rs.getString("name"),
                     rs.getString("lastName"),
@@ -80,131 +81,64 @@ public class UserDaoJdbc implements UserDao{
         }
     }
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() throws UserDaoException{
         logger.debug("getAllUsers");
         List<User> users = jdbcTemplate.query(SQL_ALL_USERS, new UserRowMapper());
         logger.debug(users.size());
         return users;
     }
 
-    public static User getUserById(int id) throws UserDaoException {
-        logger.debug(id);
+    public int deleteUser(int id)throws UserDaoException {
+        int count = 0;
+        logger.info("count deleteUser " + count);
+        count = jdbcTemplate.update(SQL_DELETE_USER, id);
+        return count;
+    }
+
+    public User getUserById(int id) throws UserDaoException {
+        logger.debug("getUserById " + id);
         User user = null;
-        try(Connection connection = PostgresJdbcConnector.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_USER)){
-            preparedStatement.setInt(1, id);
-            ResultSet rs = preparedStatement.executeQuery();
-            if(rs.next()) {
-                auth = true;
-                logger.debug("find users: " + id);
-                user = new User(rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("lastName"),
-                        rs.getString("email"),
-                        rs.getString("login"),
-                        rs.getString("password"),
-                        rs.getDate("createdAt"),
-                        rs.getDate("updatedAt"),
-                        rs.getBoolean("enabled"),
-                        rs.getString("sex"),
-                        rs.getDate("birth"),
-                        rs.getString("residence"),
-                        rs.getString("education"),
-                        rs.getString("workplace"),
-                        rs.getString("position"),
-                        rs.getString("passport"),
-                        rs.getString("issuedBy"),
-                        rs.getString("adrressReg"),
-                        rs.getInt("accessLevel"));
-            }else {
-                logger.debug("Not found user: " + id);
-            }
-        } catch (SQLException e) {
-            logger.error(e);
-            throw new UserDaoException();
+        auth = true;
+        user = jdbcTemplate.queryForObject(SQL_FIND_USER, new UserRowMapper(), id);
+        return user;
+    }
+
+    public int insertUser(User user) throws UserDaoException {
+        int count = 0;
+        count = jdbcTemplate.update(SQL_INSERT_USER,  user.getName(),user.getLastName(),user.getEmail(),user.getLogin(),
+             user.getPassword(),(Date) user.getCreatedAt(),(Date) user.getUpdatedAt(),user.isEnabled(), user.getSex(),
+            (Date) user.getBirth(),user.getResidence(), user.getEducation(),user.getWorkplace(), user.getPosition(),
+            user.getPassport(),user.getIssuedBy(), user.getAddressReg(), user.getLevel());
+        logger.debug(user.getId()+" user was insert "+user.getName());
+        return count;
+    }
+
+    public int updateUser(User user) throws UserDaoException {
+        int count = 0;
+        count = jdbcTemplate.update(SQL_UPDATE_USER,  user.getName(),user.getLastName(),user.getEmail(),user.getLogin(),
+                user.getPassword(),(Date) user.getCreatedAt(),(Date) user.getUpdatedAt(),user.isEnabled(), user.getSex(),
+                (Date) user.getBirth(),user.getResidence(), user.getEducation(),user.getWorkplace(), user.getPosition(),
+                user.getPassport(),user.getIssuedBy(), user.getAddressReg(), user.getLevel(), user.getId());
+        logger.debug(user.getId()+" user was insert "+user.getName());
+        return count;
+    }
+
+
+    public User getUserByLoginAndPassword(String login, String password) throws UserDaoException {
+        logger.debug("getUserByLoginAndPassword " +  login + " password "+ password);
+        User user = null;
+        user = jdbcTemplate.queryForObject(SQL_FIND_USER_LOGIN_PASS, new UserRowMapper(), login, password);
+        if(user != null) {
+            auth = true;
+            logger.debug(login + " " + password + " found - getAuth - " + getAuth());
+        } else {
+            auth = false;
+            logger.debug(login + " " + password + " not found - getAuth - " + getAuth());
         }
         return user;
     }
 
-
-    public static int updateUser(User user) throws UserDaoException {
-        int count = 0;
-        try (Connection connection = PostgresJdbcConnector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_USER)){
-            preparedStatement.setString(1, user.getName());
-            preparedStatement.setString(2, user.getLastName());
-            preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setString(4, "test");
-            preparedStatement.setString(5, "test");
-            preparedStatement.setDate(6, new Date(new java.util.Date().getTime()));
-            preparedStatement.setDate(7, new Date(new java.util.Date().getTime()));
-            preparedStatement.setBoolean(8, true);
-            preparedStatement.setString(9, "t");
-            preparedStatement.setDate(10, new Date(new java.util.Date().getTime()));
-            preparedStatement.setString(11, "test");
-            preparedStatement.setString(12, "test");
-            preparedStatement.setString(13, "test");
-            preparedStatement.setString(14, "test");
-            preparedStatement.setString(15, "test");
-            preparedStatement.setString(16, "test");
-            preparedStatement.setString(17, "test");
-            preparedStatement.setInt(18, user.getLevel());
-            preparedStatement.setInt(19,user.getId());
-            System.out.println(preparedStatement.toString());
-            count = preparedStatement.executeUpdate();
-            logger.debug(user.getId()+" user was update "+user.getName());
-        } catch (SQLException e) {
-            logger.error(e);
-            throw new UserDaoException();
-        }
-        return count;
-    }
-
-    public static int insertUser(User user) throws UserDaoException {
-        int count = 0;
-        try (Connection connection = PostgresJdbcConnector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERT_USER)){
-            preparedStatement.setString(1, user.getName());
-            preparedStatement.setString(2, user.getLastName());
-            preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setString(4, user.getLogin());
-            preparedStatement.setString(5, user.getPassword());
-            preparedStatement.setDate(6, (Date) user.getCreatedAt());
-            preparedStatement.setDate(7, (Date) user.getUpdatedAt());
-            preparedStatement.setBoolean(8, user.isEnabled());
-            preparedStatement.setString(9, user.getSex());
-            preparedStatement.setDate(10, (Date) user.getBirth());
-            preparedStatement.setString(11, user.getResidence());
-            preparedStatement.setString(12, user.getEducation());
-            preparedStatement.setString(13, user.getWorkplace());
-            preparedStatement.setString(14, user.getPosition());
-            preparedStatement.setString(15, user.getPassport());
-            preparedStatement.setString(16, user.getIssuedBy());
-            preparedStatement.setString(17, user.getAddressReg());
-            preparedStatement.setInt(18, user.getLevel());
-            count = preparedStatement.executeUpdate();
-            logger.debug(user.getId()+" user was insert "+user.getName());
-        } catch (SQLException e) {
-            logger.error(e);
-            throw new UserDaoException();
-        }
-        return count;
-    }
-
-    public static int deleteUser(int id) {
-        int count = 0;
-        try(Connection connection = PostgresJdbcConnector.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_USER)) {
-            preparedStatement.setInt(1, id);
-            count = preparedStatement.executeUpdate();
-            logger.debug(id+" user was deleted");
-        } catch (SQLException e) {
-            logger.error(e);
-        }
-        return count;
-    }
-
-    public static User getUserByLoginAndPassword(String login, String password) throws UserDaoException {
+    /*public static User getUserByLoginAndPassword(String login, String password) throws UserDaoException {
 
         logger.debug(login + " " + password);
         User user = null;
@@ -232,7 +166,7 @@ public class UserDaoJdbc implements UserDao{
             throw new UserDaoException();
         }
         return user;
-    }
+    }*/
 
     public static boolean registrationUser(String login, String password, String email, Integer accessLevel) throws UserDaoException {
         try(Connection connection = PostgresJdbcConnector.getConnection();

@@ -5,8 +5,11 @@ import main.models.jdbc.UserDaoJdbc;
 import main.models.pojo.User;
 import org.apache.log4j.Logger;
 import main.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +20,14 @@ import java.io.IOException;
 public class AddUserServlet extends HttpServlet {
 
     private static Logger logger = Logger.getLogger(AddUserServlet.class);
+    @Autowired
+    private UserService userService;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,17 +39,17 @@ public class AddUserServlet extends HttpServlet {
         User user = new User();
         if (id != 0) {
             try {
-                user = UserDaoJdbc.getUserById(id);
+                user = userService.getUserById(id);
             } catch (UserDaoException e) {
                 logger.error(e);
             }
         }
-        req.setAttribute("id", user.getId());
+        req.setAttribute("id",user.getId()==null ? 0 : user.getId());
         req.setAttribute("name", user.getName());
         req.setAttribute("lastName", user.getLastName());
         req.setAttribute("email", user.getEmail());
         req.setAttribute("accessLevel", user.getLevel());
-        logger.trace(user.getId());
+        logger.trace("test user id " +user.getId()+ "test req id "  + req.getAttribute("id"));
         req.getRequestDispatcher("/adduser.jsp").forward(req, resp);
     }
 
@@ -60,13 +71,13 @@ public class AddUserServlet extends HttpServlet {
         logger.debug(id);
         if (id == 0) {
             try {
-                count = UserService.insertUser(user);
+                count = userService.insertUser(user);
             } catch (UserDaoException e) {
                 logger.error(e);
             }
         } else {
             try {
-                count = UserService.updateUserOnId(user);
+                count = userService.updateUser(user);
             } catch (UserDaoException e) {
                 logger.error(e);
             }
