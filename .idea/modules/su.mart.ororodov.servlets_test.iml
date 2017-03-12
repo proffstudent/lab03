@@ -16,6 +16,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.springframework:spring-jdbc:4.3.6.RELEASE" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.springframework:spring-context-support:4.3.6.RELEASE" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.springframework:spring-web:4.3.6.RELEASE" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.springframework:spring-webmvc:4.3.6.RELEASE" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: javax.servlet:javax.servlet-api:3.0.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: jstl:jstl:1.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: postgresql:postgresql:9.0-801.jdbc4" level="project" />

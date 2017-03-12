@@ -1,0 +1,47 @@
+<!--<servlet>
+       <servlet-name>Login</servlet-name>
+       <servlet-class>LoginServlet</servlet-class>
+       <load-on-startup>1</load-on-startup>
+   </servlet>
+   <servlet-mapping>
+       <servlet-name>Login</servlet-name>
+       <url-pattern>/</url-pattern>
+   </servlet-mapping>-->
+
+<!--<servlet>
+    <servlet-name>users</servlet-name>
+    <servlet-class>su.ogorodov.controllers.servlets.UsersServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+    <servlet-name>users</servlet-name>
+    <url-pattern>/users</url-pattern>
+</servlet-mapping>-->
+
+<!--<servlet>
+    <servlet-name>DeleteUser</servlet-name>
+    <servlet-class>su.ogorodov.controllers.servlets.DeleteUserServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+    <servlet-name>DeleteUser</servlet-name>
+    <url-pattern>/deleteuser</url-pattern>
+</servlet-mapping>-->
+<!-- <servlet>
+     <servlet-name>AddUser</servlet-name>
+     <servlet-class>su.ogorodov.controllers.servlets.AddUserServlet</servlet-class>
+     <load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet-mapping>
+     <servlet-name>AddUser</servlet-name>
+     <url-pattern>/adduser</url-pattern>
+ </servlet-mapping>-->
+<!--<servlet>
+    <servlet-name>Registration</servlet-name>
+    <servlet-class>su.ogorodov.controllers.servlets.RegistrationServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+    <servlet-name>Registration</servlet-name>
+    <url-pattern>/registration</url-pattern>
+</servlet-mapping>-->

@@ -1,7 +1,5 @@
-import main.common.exceptions.UserDaoException;
-import main.models.connector.PostgresJdbcConnector;
-import main.models.jdbc.UserDaoJdbc;
-import main.models.pojo.User;
+import su.ogorodov.common.exceptions.UserDaoException;
+import su.ogorodov.models.connector.PostgresJdbcConnector;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;

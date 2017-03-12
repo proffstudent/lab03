@@ -5,19 +5,24 @@
 </head>
 <body>
 <form action="/reviews/adduser" method="post">
-    <input type="hidden" name="id" id="id" value="${id}">
-
-    <label for="name">name:</label>
-    <input type="text" name="name" id="name" value="${name}" placeholder="name">
-
-    <label for="lastname">lastname:</label>
-    <input type="text" name="lastName" id="lastName" value="${lastName}" placeholder="lastName">
-
-    <label for="email">email:</label>
-    <input type="text" name="email" id="email" value="${email}" placeholder="email">
-
-    <label for="accessLevel">accessLevel:</label>
-    <input type="text" name="accessLevel" id="accessLevel" value="${accessLevel}" placeholder="accessLevel">
+    <input type="hidden" name="id" id="id" value="${user.id}">
+<table border="1" width="100%" cellpadding="5">
+        <tr>
+            <th>NAME</th>
+            <th>LASTNAME</th>
+            <th>EMAIL</th>
+            <th>WORKPLACE</th>
+            <th>ACCESSLEVEL</th>
+        </tr>
+        <tr>
+            <td><input type="text" name="name" id="name" value="${user.name}" placeholder="name"></td>
+            <td><input type="text" name="lastName" id="lastName" value="${user.lastName}" placeholder="lastName"></td>
+            <td><input type="text" name="email" id="email" value="${user.email}" placeholder="email"></td>
+            <td><input type="text" name="workplace" id="workplace" value="${user.workplace}" placeholder="workplace"></td>
+            <td><input type="text" name="accessLevel" id="accessLevel" value="${user.accessLevel}"
+                       placeholder="accessLevel"></td>
+        </tr>
+    </table>
 
     <input type="submit" value="ok" formmethod="post">
 </form>

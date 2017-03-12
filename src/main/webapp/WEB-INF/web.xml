@@ -4,54 +4,29 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/applicationContext.xml</param-value>
+    </context-param>
+    <!-- Обрабатывает все запросы. Центральное понятие-->
     <servlet>
-        <servlet-name>Login</servlet-name>
-        <servlet-class>main.controllers.LoginServlet</servlet-class>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
+
     <servlet-mapping>
-        <servlet-name>Login</servlet-name>
+        <servlet-name>dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-
-    <servlet>
-        <servlet-name>users</servlet-name>
-        <servlet-class>main.controllers.UsersServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
     <servlet-mapping>
-        <servlet-name>users</servlet-name>
-        <url-pattern>/users</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AddUser</servlet-name>
-        <servlet-class>main.controllers.AddUserServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AddUser</servlet-name>
-        <url-pattern>/adduser</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>DeleteUser</servlet-name>
-        <servlet-class>main.controllers.DeleteUserServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DeleteUser</servlet-name>
-        <url-pattern>/deleteuser</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>Registration</servlet-name>
-        <servlet-class>main.controllers.RegistrationServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Registration</servlet-name>
-        <url-pattern>/registration</url-pattern>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>*.form</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -73,7 +48,7 @@
 
     <filter>
         <filter-name>simpleFilter</filter-name>
-        <filter-class>main.controllers.ServletFilter</filter-class>
+        <filter-class>su.ogorodov.controllers.servlets.ServletFilter</filter-class>
         <init-param>
             <param-name>active</param-name>
             <param-value>true</param-value>
