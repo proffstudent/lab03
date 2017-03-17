@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import su.ogorodov.common.exceptions.UserDaoException;
 import su.ogorodov.common.exceptions.UserJdbcTemlateException;
-import su.ogorodov.models.connector.PostgresJdbcConnector;
 import su.ogorodov.models.dao.UserDao;
 import su.ogorodov.models.pojo.User;
 import org.apache.log4j.Logger;
@@ -88,8 +87,6 @@ public class UserDaoJdbc implements UserDao {
         logger.debug("getAllUsers");
         List<User> users = this.jdbcTemplate.query(SQL_ALL_USERS, new UserRowMapper());
         logger.debug(users.size());
-
-
         return users;
     }
 
@@ -158,28 +155,6 @@ public class UserDaoJdbc implements UserDao {
         return false;
     }
 
-
-    /*public static boolean registrationUser(String login, String password,String name, String lastName, String email, Integer accessLevel) throws UserDaoException {
-        try(Connection connection = PostgresJdbcConnector.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_USER)) {
-            preparedStatement.setString(1, login);
-            preparedStatement.setString(2, password);
-            preparedStatement.setString(1, login);
-            preparedStatement.setString(2, password);
-            preparedStatement.setString(3, email);
-            preparedStatement.setInt(4, accessLevel);
-            int count = preparedStatement.executeUpdate();
-            if(count > 0){
-                logger.debug("inserted " + count);
-                return true;
-            }else{
-                logger.debug(login + " " + password + " not inserted");
-            }
-        } catch (SQLException e) {
-            logger.error(e);
-        }
-        return false;
-    }*/
 }
 
 

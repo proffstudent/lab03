@@ -5,6 +5,6 @@ package su.ogorodov.common.exceptions;
  */
 public class UserDaoException extends Exception {
     public UserDaoException(){
-        System.out.println("test");
+        System.out.println("UserDaoException");
     }
 }

@@ -3,6 +3,7 @@ import su.ogorodov.models.connector.PostgresJdbcConnector;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
+import java.util.HashMap;
 
 /**
  * Created by User on 01.03.2017.
@@ -11,6 +12,8 @@ public class Test {
     private static Logger logger = Logger.getLogger(Test.class);
 
     public static void main(String[] args) throws UserDaoException {
+
+
         logger.info("logger work!!!");
         Connection con = PostgresJdbcConnector.getConnection();
         /*try {

@@ -2,8 +2,6 @@ package su.ogorodov.models.pojo;
 
 import java.util.Date;
 
-
-
 public class Article {
     private Integer id = null;
     private String title;
@@ -17,6 +15,12 @@ public class Article {
     private Date dateAdoption;
     private Date datePubl;
     private String url;
+
+    public Article(int id, String title, String subject) {
+        this.id = id;
+        this.title = title;
+        this.subject = subject;
+    }
 
     public Integer getId() {
         return id;
